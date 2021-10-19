@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
+import { SelfieSegmentation } from "@mediapipe/selfie_segmentation";
+import { Camera } from "@mediapipe/camera_utils";
 import "./App.css";
 
 const App = () => {
@@ -14,6 +16,38 @@ const App = () => {
         textAlign: "center",
         zIndex: 1,
         minHeight: "100%",
+    };
+
+    useEffect(() => {
+        const selfieSegmentation = new SelfieSegmentation({
+            locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
+            },
+        });
+        selfieSegmentation.setOptions({
+            modelSelection: 1,
+        });
+        selfieSegmentation.onResults(onResults);
+
+        if (
+            typeof webcamRef.current !== "undefined" &&
+            webcamRef.current !== null
+        ) {
+            const camera = new Camera(webcamRef.current.video, {
+                onFrame: async () => {
+                    await selfieSegmentation.send({
+                        image: webcamRef.current.video,
+                    });
+                },
+                width: 1280,
+                height: 720,
+            });
+            camera.start();
+        }
+    }, []);
+
+    const onResults = (results) => {
+        console.log(results);
     };
 
     return (
