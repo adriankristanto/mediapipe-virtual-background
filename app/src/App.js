@@ -6,6 +6,7 @@ import "./App.css";
 
 const App = () => {
     const webcamRef = useRef(null);
+    const canvasRef = useRef(null);
     // https://stackoverflow.com/questions/17976995/how-to-center-absolute-div-horizontally-using-css
     const style = {
         position: "absolute",
@@ -53,6 +54,7 @@ const App = () => {
     return (
         <div>
             <Webcam ref={webcamRef} style={style} mirrored />
+            <canvas ref={canvasRef} style={style} />
         </div>
     );
 };
