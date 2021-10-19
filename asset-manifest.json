@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/mediapipe-virtual-background/static/css/main.5739ad41.chunk.css",
+    "main.js": "/mediapipe-virtual-background/static/js/main.6e649c4b.chunk.js",
+    "main.js.map": "/mediapipe-virtual-background/static/js/main.6e649c4b.chunk.js.map",
+    "runtime-main.js": "/mediapipe-virtual-background/static/js/runtime-main.6ae80169.js",
+    "runtime-main.js.map": "/mediapipe-virtual-background/static/js/runtime-main.6ae80169.js.map",
+    "static/js/2.a7bde7c7.chunk.js": "/mediapipe-virtual-background/static/js/2.a7bde7c7.chunk.js",
+    "static/js/2.a7bde7c7.chunk.js.map": "/mediapipe-virtual-background/static/js/2.a7bde7c7.chunk.js.map",
+    "static/js/3.d3fea2c7.chunk.js": "/mediapipe-virtual-background/static/js/3.d3fea2c7.chunk.js",
+    "static/js/3.d3fea2c7.chunk.js.map": "/mediapipe-virtual-background/static/js/3.d3fea2c7.chunk.js.map",
+    "index.html": "/mediapipe-virtual-background/index.html",
+    "static/css/main.5739ad41.chunk.css.map": "/mediapipe-virtual-background/static/css/main.5739ad41.chunk.css.map",
+    "static/js/2.a7bde7c7.chunk.js.LICENSE.txt": "/mediapipe-virtual-background/static/js/2.a7bde7c7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6ae80169.js",
+    "static/js/2.a7bde7c7.chunk.js",
+    "static/css/main.5739ad41.chunk.css",
+    "static/js/main.6e649c4b.chunk.js"
+  ]
+}
