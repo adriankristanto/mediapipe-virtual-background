@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import Webcam from "react-webcam";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    // https://stackoverflow.com/questions/17976995/how-to-center-absolute-div-horizontally-using-css
+    const style = {
+        position: "absolute",
+        marginLeft: "auto",
+        marginRight: "auto",
+        left: 0,
+        right: 0,
+        textAlign: "center",
+        zIndex: 1,
+        minHeight: "100%",
+    };
+    return (
+        <div>
+            <Webcam mirrored />
+        </div>
+    );
+};
 
 export default App;
