@@ -1,7 +1,9 @@
+import React, { useRef, useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import "./App.css";
 
 const App = () => {
+    const webcamRef = useRef(null);
     // https://stackoverflow.com/questions/17976995/how-to-center-absolute-div-horizontally-using-css
     const style = {
         position: "absolute",
@@ -13,9 +15,10 @@ const App = () => {
         zIndex: 1,
         minHeight: "100%",
     };
+
     return (
         <div>
-            <Webcam mirrored />
+            <Webcam ref={webcamRef} style={style} mirrored />
         </div>
     );
 };
