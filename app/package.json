@@ -1,5 +1,6 @@
 {
     "name": "app",
+    "homepage": "https://adriankristanto.dev/mediapipe-virtual-background/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
