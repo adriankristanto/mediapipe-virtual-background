@@ -1,1 +1,1 @@
-# virtual-background
+# mediapipe-virtual-background
