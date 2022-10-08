@@ -7,17 +7,6 @@ import './App.css'
 const App = () => {
     const webcamRef = useRef(null)
     const canvasRef = useRef(null)
-    // https://stackoverflow.com/questions/17976995/how-to-center-absolute-div-horizontally-using-css
-    const style = {
-        position: 'absolute',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        left: 0,
-        right: 0,
-        textAlign: 'center',
-        zIndex: 1,
-        minHeight: '100%',
-    }
 
     useEffect(() => {
         const selfieSegmentation = new SelfieSegmentation({
@@ -95,8 +84,17 @@ const App = () => {
 
     return (
         <div>
-            <Webcam ref={webcamRef} style={style} mirrored />
-            <canvas ref={canvasRef} style={style} />
+            <Webcam
+                ref={webcamRef}
+                className="absolute ml-auto mr-auto left-0 right-0 text-center min-h-full"
+                // style={style}
+                mirrored
+            />
+            <canvas
+                ref={canvasRef}
+                className="absolute ml-auto mr-auto left-0 right-0 text-center min-h-full"
+                // style={style}
+            />
         </div>
     )
 }
