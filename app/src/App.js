@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useCallback } from 'react'
 import Webcam from 'react-webcam'
 import { SelfieSegmentation } from '@mediapipe/selfie_segmentation'
 import { Camera } from '@mediapipe/camera_utils'
@@ -11,6 +11,10 @@ const App = () => {
     const canvasRef = useRef(null)
 
     const [showModal, toggleModal] = useState(false)
+    const [settings, setSettings] = useState({
+        blur: false,
+        zoom: false,
+    })
 
     const openModal = () => {
         toggleModal(true)
@@ -48,58 +52,65 @@ const App = () => {
         }
     }, [])
 
-    const onResults = (results) => {
-        // the following two lines of code fix the resolution of the canvas
-        canvasRef.current.width = webcamRef.current.video.clientWidth
-        canvasRef.current.height = webcamRef.current.video.clientHeight
+    const onResults = useCallback(
+        (results) => {
+            // the following two lines of code fix the resolution of the canvas
+            canvasRef.current.width = webcamRef.current.video.clientWidth
+            canvasRef.current.height = webcamRef.current.video.clientHeight
 
-        const canvasCtx = canvasRef.current.getContext('2d')
-        // https://stackoverflow.com/questions/50681592/getusermedia-mirror-image-instead-of-flip
-        canvasCtx.setTransform(-1, 0, 0, 1, canvasRef.current.width, 0)
-        canvasCtx.save()
-        canvasCtx.clearRect(
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-        )
-        canvasCtx.drawImage(
-            results.segmentationMask,
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-        )
+            const canvasCtx = canvasRef.current.getContext('2d')
+            // https://stackoverflow.com/questions/50681592/getusermedia-mirror-image-instead-of-flip
+            canvasCtx.setTransform(-1, 0, 0, 1, canvasRef.current.width, 0)
+            canvasCtx.save()
+            canvasCtx.clearRect(
+                0,
+                0,
+                canvasRef.current.width,
+                canvasRef.current.height
+            )
+            canvasCtx.drawImage(
+                results.segmentationMask,
+                0,
+                0,
+                canvasRef.current.width,
+                canvasRef.current.height
+            )
 
-        // draw the part of the raw image that overlaps with the segmentation mask (the person)
-        canvasCtx.globalCompositeOperation = 'source-in'
-        canvasCtx.drawImage(
-            results.image,
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-        )
+            // draw the part of the raw image that overlaps with the segmentation mask (the person)
+            canvasCtx.globalCompositeOperation = 'source-in'
+            canvasCtx.drawImage(
+                results.image,
+                0,
+                0,
+                canvasRef.current.width,
+                canvasRef.current.height
+            )
 
-        // draw the part of the raw image that does not overlap with the segmentation mask (the background)
-        canvasCtx.globalCompositeOperation = 'destination-over'
-        canvasCtx.filter = 'blur(16px)'
-        canvasCtx.drawImage(
-            results.image,
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-        )
-        canvasCtx.restore()
-    }
+            // draw the part of the raw image that does not overlap with the segmentation mask (the background)
+            canvasCtx.globalCompositeOperation = 'destination-over'
+            if (settings.blur) {
+                canvasCtx.filter = 'blur(16px)'
+            }
+            canvasCtx.drawImage(
+                results.image,
+                0,
+                0,
+                canvasRef.current.width,
+                canvasRef.current.height
+            )
+            canvasCtx.restore()
+        },
+        [settings]
+    )
 
     return (
         <div className="flex justify-center items-center min-h-screen min-w-screen bg-black">
             <Webcam ref={webcamRef} className="absolute opacity-0" mirrored />
             <canvas
                 ref={canvasRef}
-                className="absolute text-center min-h-full min-w-full"
+                className={`absolute text-center min-h-full ${
+                    settings.zoom && 'min-w-full'
+                }`}
             />
             <button
                 className="absolute right-0 top-0 mt-2 ml-2"
