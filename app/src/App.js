@@ -83,15 +83,11 @@ const App = () => {
     }
 
     return (
-        <div>
-            <Webcam
-                ref={webcamRef}
-                className="absolute ml-auto mr-auto left-0 right-0 text-center min-h-full"
-                mirrored
-            />
+        <div className="flex justify-center items-center min-h-screen min-w-screen bg-black">
+            <Webcam ref={webcamRef} className="absolute opacity-0" mirrored />
             <canvas
                 ref={canvasRef}
-                className="absolute ml-auto mr-auto left-0 right-0 text-center min-h-full"
+                className="absolute text-center min-h-full min-w-full"
             />
         </div>
     )
