@@ -4,6 +4,7 @@ import { SelfieSegmentation } from '@mediapipe/selfie_segmentation'
 import { Camera } from '@mediapipe/camera_utils'
 import { Settings } from 'iconoir-react'
 import SettingsModal from './SettingsModal'
+import Toggle from './Toggle'
 import './App.css'
 
 const App = () => {
@@ -24,33 +25,9 @@ const App = () => {
         toggleModal(false)
     }
 
-    useEffect(() => {
-        const selfieSegmentation = new SelfieSegmentation({
-            locateFile: (file) => {
-                return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
-            },
-        })
-        selfieSegmentation.setOptions({
-            modelSelection: 1,
-        })
-        selfieSegmentation.onResults(onResults)
-
-        if (
-            typeof webcamRef.current !== 'undefined' &&
-            webcamRef.current !== null
-        ) {
-            const camera = new Camera(webcamRef.current.video, {
-                onFrame: async () => {
-                    await selfieSegmentation.send({
-                        image: webcamRef.current.video,
-                    })
-                },
-                width: 1280,
-                height: 720,
-            })
-            camera.start()
-        }
-    }, [])
+    const updateSettings = (newSettingsGenerator) => {
+        setSettings(newSettingsGenerator)
+    }
 
     const onResults = useCallback(
         (results) => {
@@ -103,6 +80,34 @@ const App = () => {
         [settings]
     )
 
+    useEffect(() => {
+        const selfieSegmentation = new SelfieSegmentation({
+            locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`
+            },
+        })
+        selfieSegmentation.setOptions({
+            modelSelection: 1,
+        })
+        selfieSegmentation.onResults(onResults)
+
+        if (
+            typeof webcamRef.current !== 'undefined' &&
+            webcamRef.current !== null
+        ) {
+            const camera = new Camera(webcamRef.current.video, {
+                onFrame: async () => {
+                    await selfieSegmentation.send({
+                        image: webcamRef.current.video,
+                    })
+                },
+                width: 1280,
+                height: 720,
+            })
+            camera.start()
+        }
+    }, [onResults])
+
     return (
         <div className="flex justify-center items-center min-h-screen min-w-screen bg-black">
             <Webcam ref={webcamRef} className="absolute opacity-0" mirrored />
@@ -118,7 +123,34 @@ const App = () => {
             >
                 <Settings />
             </button>
-            <SettingsModal open={showModal} onClose={closeModal} />
+            <SettingsModal
+                open={showModal}
+                onClose={closeModal}
+                onSettingChange={updateSettings}
+            >
+                <Toggle
+                    value={settings.blur}
+                    onChange={() =>
+                        updateSettings((oldSettings) => ({
+                            ...oldSettings,
+                            blur: !oldSettings.blur,
+                        }))
+                    }
+                >
+                    Blur my background
+                </Toggle>
+                <Toggle
+                    value={settings.zoom}
+                    onChange={() =>
+                        updateSettings((oldSettings) => ({
+                            ...oldSettings,
+                            zoom: !oldSettings.zoom,
+                        }))
+                    }
+                >
+                    Zoom in
+                </Toggle>
+            </SettingsModal>
         </div>
     )
 }
