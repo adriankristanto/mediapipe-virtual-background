@@ -1,12 +1,24 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import { SelfieSegmentation } from '@mediapipe/selfie_segmentation'
 import { Camera } from '@mediapipe/camera_utils'
+import { Settings } from 'iconoir-react'
+import SettingsModal from './SettingsModal'
 import './App.css'
 
 const App = () => {
     const webcamRef = useRef(null)
     const canvasRef = useRef(null)
+
+    const [showModal, toggleModal] = useState(false)
+
+    const openModal = () => {
+        toggleModal(true)
+    }
+
+    const closeModal = () => {
+        toggleModal(false)
+    }
 
     useEffect(() => {
         const selfieSegmentation = new SelfieSegmentation({
@@ -89,6 +101,13 @@ const App = () => {
                 ref={canvasRef}
                 className="absolute text-center min-h-full min-w-full"
             />
+            <button
+                className="absolute right-0 top-0 mt-2 ml-2"
+                onClick={openModal}
+            >
+                <Settings />
+            </button>
+            <SettingsModal open={showModal} onClose={closeModal} />
         </div>
     )
 }
