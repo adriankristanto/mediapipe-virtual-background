@@ -87,7 +87,7 @@ const App = () => {
             <Webcam ref={webcamRef} className="absolute opacity-0" mirrored />
             <canvas
                 ref={canvasRef}
-                className="absolute text-center min-h-full min-w-full "
+                className="absolute text-center min-h-full min-w-full"
             />
         </div>
     )
