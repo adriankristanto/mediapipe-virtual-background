@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react'
 import Webcam from 'react-webcam'
 import { SelfieSegmentation } from '@mediapipe/selfie_segmentation'
 import { Camera } from '@mediapipe/camera_utils'
-import { Settings } from 'iconoir-react'
+import { ReactComponent as Settings } from './assets/settings.svg'
 import SettingsModal from './SettingsModal'
 import Toggle from './Toggle'
 import './App.css'
@@ -121,7 +121,9 @@ const App = () => {
                 className="absolute right-0 top-0 mt-2 ml-2"
                 onClick={openModal}
             >
-                <Settings />
+                <Settings
+                    className={`${settings.zoom ? 'fill-black' : 'fill-white'}`}
+                />
             </button>
             <SettingsModal
                 open={showModal}
