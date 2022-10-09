@@ -1,15 +1,17 @@
 {
   "files": {
-    "main.css": "/mediapipe-virtual-background/static/css/main.683b230c.css",
-    "main.js": "/mediapipe-virtual-background/static/js/main.4c8b59ac.js",
+    "main.css": "/mediapipe-virtual-background/static/css/main.2825cab4.css",
+    "main.js": "/mediapipe-virtual-background/static/js/main.f057bcb8.js",
     "static/js/787.ee4d86e2.chunk.js": "/mediapipe-virtual-background/static/js/787.ee4d86e2.chunk.js",
+    "static/media/settings.svg": "/mediapipe-virtual-background/static/media/settings.b06737d8c8a93744b27e48f179957baa.svg",
     "index.html": "/mediapipe-virtual-background/index.html",
-    "main.683b230c.css.map": "/mediapipe-virtual-background/static/css/main.683b230c.css.map",
-    "main.4c8b59ac.js.map": "/mediapipe-virtual-background/static/js/main.4c8b59ac.js.map",
+    "static/media/close.svg": "/mediapipe-virtual-background/static/media/close.08233535a9321b39bf5f4a13e34fede0.svg",
+    "main.2825cab4.css.map": "/mediapipe-virtual-background/static/css/main.2825cab4.css.map",
+    "main.f057bcb8.js.map": "/mediapipe-virtual-background/static/js/main.f057bcb8.js.map",
     "787.ee4d86e2.chunk.js.map": "/mediapipe-virtual-background/static/js/787.ee4d86e2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.683b230c.css",
-    "static/js/main.4c8b59ac.js"
+    "static/css/main.2825cab4.css",
+    "static/js/main.f057bcb8.js"
   ]
 }
